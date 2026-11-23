@@ -15,6 +15,22 @@ const catalog = {
     [{
       text: "🔺 СИНДИКАТ",
       url: "https://t.me/SYNDY46_bot"
+    }],
+    [{
+      text: "🍸 DRAGS BAR",
+      url: "https://t.me/DRb46_bot"
+    }],
+    [{
+      text: "🌿 WEED MASTER",
+      url: "https://t.me/Wdm46_bot"
+    }],
+    [{
+      text: "🌃 LAW STREET",
+      url: "https://t.me/Lws46_bot"
+    }],
+    [{
+      text: "🐙 KrakeN",
+      url: "https://t.me/KrmarketAI_bot"
     }]
   ]
 };
