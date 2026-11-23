@@ -1,10 +1,19 @@
 const catalog = {
   inline_keyboard: [
-    [{ text: "🌊 ВОДНЫЙ", url: "https://t.me/Vvodnik1_bot" }],
+    [{
+      text: "🌊 ВОДНЫЙ",
+      url: "https://t.me/Vvodnik1_bot"
+    }],
     [{
       text: "💱 ЛУЧШИЙ ОБМЕН MAGIC TRADE",
       url: "https://t.me/magic_trade_420"
+    }],
+    [{
+      text: "🎰 КАЗИНО",
+      url: "https://telegram.me/ton_burstforth_bot/app?startapp=bXN0PTB4MjA1MjY1ZTI0Jm09VG9teUNyaW0mYz1aenp6"
     }]
+  ]
+};
   ]
 };
 export default {
