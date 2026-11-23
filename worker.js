@@ -139,6 +139,84 @@ export default {
     }
 
     const message = update.message;
+        if (
+      message &&
+      ["group", "supergroup"].includes(message.chat?.type)
+    ) {
+      if (message.from?.is_bot || typeof message.text !== "string") {
+        return reply("OK");
+      }
+
+      const normalize = (value) =>
+        " " + value.toLowerCase().replace(/ё/g, "е")
+          .replace(/[^\p{L}\p{N}]+/gu, " ").trim() + " ";
+
+      const text = normalize(message.text);
+      const requests = [
+        "дай", "дайте", "скинь", "скиньте", "кинь", "киньте",
+        "пришли", "пришлите", "где", "ссылку", "ссылка",
+        "нужен", "нужна", "нужно"
+      ];
+
+      if (!requests.some((word) => text.includes(" " + word + " "))) {
+        return reply("OK");
+      }
+
+      const routes = [
+        ["ВОДНЫЙ", [
+          "водный", "водного"
+        ]],
+        ["ЛУЧШИЙ ОБМЕН MAGIC TRADE", [
+          "обмен", "обменник", "обменку",
+          "magic trade", "магик трейд"
+        ]],
+        ["КАЗИНО", [
+          "казино", "казик"
+        ]],
+        ["СИНДИКАТ", [
+          "синдикат", "синдиката"
+        ]],
+        ["DRAGS BAR", [
+          "drags bar", "драгс бар", "драгс"
+        ]],
+        ["WEED MASTER", [
+          "weed master", "вид мастер", "видмастер"
+        ]],
+        ["LAW STREET", [
+          "law street", "лоу стрит", "лау стрит"
+        ]],
+        ["KrakeN", [
+          "kraken", "кракен", "кракена"
+        ]]
+      ];
+
+      const buttons = catalog.inline_keyboard.flat();
+      const rows = routes
+        .filter(([, names]) =>
+          names.some((name) => text.includes(normalize(name))))
+        .map(([title]) =>
+          buttons.find((button) =>
+            normalize(button.text) === normalize(title)))
+        .filter(Boolean)
+        .map((button) => [button]);
+
+      if (!rows.length) return reply("OK");
+
+      return Response.json({
+        method: "sendMessage",
+        chat_id: message.chat.id,
+        ...(message.message_thread_id
+          ? { message_thread_id: message.message_thread_id }
+          : {}),
+        reply_parameters: {
+          message_id: message.message_id
+        },
+        text: "Вот подходящие ссылки 👇",
+        reply_markup: {
+          inline_keyboard: rows
+        }
+      });
+    }
     if (
       !message ||
       message.chat?.type !== "private" ||
