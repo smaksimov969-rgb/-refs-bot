@@ -146,7 +146,31 @@ export default {
     ) {
       return reply("OK");
     }
-
+    if (/^\/start(?:@\w+)?(?:\s|$)/i.test(message.text.trim())) {
+      try {
+        const result = await fetch(
+          `https://api.telegram.org/bot${env.BOT_TOKEN}/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: message.chat.id,
+              text: "Открыть меню можно кнопкой «▶️ Старт» внизу чата.",
+              reply_markup: {
+                keyboard: [[{ text: "▶️ Старт" }]],
+                resize_keyboard: true,
+                one_time_keyboard: false,
+                is_persistent: true
+              }
+            })
+          }
+        );
+        const data = await result.json();
+        if (!data.ok) return reply("Ошибка настройки кнопки.", 502);
+      } catch {
+        return reply("Ошибка связи с Telegram.", 502);
+      }
+    }
     return Response.json({
       method: "sendMessage",
       chat_id: message.chat.id,
