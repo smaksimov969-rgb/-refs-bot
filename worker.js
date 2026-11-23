@@ -1,9 +1,12 @@
 const catalog = {
   inline_keyboard: [
-    [{ text: "🌊 Водный", url: "https://t.me/Vvodnik1_bot" }]
+    [{ text: "🌊 ВОДНЫЙ", url: "https://t.me/Vvodnik1_bot" }],
+    [{
+      text: "💱 ЛУЧШИЙ ОБМЕН MAGIC TRADE",
+      url: "https://t.me/magic_trade_420"
+    }]
   ]
 };
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
